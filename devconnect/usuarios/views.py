@@ -25,11 +25,11 @@ def login_view(request):
             user=authenticate(request,username=email,password=password)
             if user is not None:
                 login(request,user)
-                return HttpResponse(f'Hola {request.user.first_name}')
-                # if user.user_type=='vendedor':
-                #     return redirect('seller_dashboard')
-                # else:
-                #     return redirect('cliente_dashboard')
+                # return HttpResponse(f'Hola {request.user.first_name}')
+                if user.user_type=='freelancer':
+                    return redirect('freelancer_home')
+                else:
+                    return redirect('cliente_dashboard')
             else:
                 form.add_error(None,'Email o contraseña incorrectos')
     else:
