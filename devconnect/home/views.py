@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import proyecto
+from .forms import proyecto_form
+from django.shortcuts import redirect
 
 def freelancer_home(request):
     if request.user.user_type!='freelancer':
@@ -17,12 +19,12 @@ def agregar_proyecto(request):
     if request.user.user_type!='cliente':
         return HttpResponse('You are not authorized to view this page')
     if request.method=='POST':
-        titulo=request.POST['titulo']
-        categoria=request.POST['categoria']
-        descripcion=request.POST['descripcion']
-        tiempo=request.POST['tiempo']
-        sueldo=request.POST['sueldo']
-        fecha_finalizacion=request.POST['fecha_finalizacion']
-        proyecto.objects.create(titulo=titulo,categoria=categoria,descripcion=descripcion,tiempo=tiempo,sueldo=sueldo,cliente=request.user,fecha_finalizacion=fecha_finalizacion)
-        return HttpResponse('Proyecto agregado exitosamente')
-    return render(request,'dashboard/agregar_proyecto.html',context={'user':request.user})
+        formulario=proyecto_form(request.POST)
+        if formulario.is_valid():
+            proyecto_obj=formulario.save(commit=False)
+            proyecto_obj.cliente=request.user
+            proyecto_obj.save()
+            return redirect('cliente_home')
+    else:
+        formulario=proyecto_form()
+    return render(request,'cliente/agregar_proyecto.html',context={'form':formulario})

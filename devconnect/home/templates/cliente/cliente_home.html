@@ -8,6 +8,8 @@
         <h1>Cliente Home</h1>
         <p>Bienvenido, {{ user.first_name }}</p>
         <h2>Tus Proyectos</h2>
+        <h3>Agregar Nuevo Proyecto</h3>
+        <a href="{% url 'agregar_proyecto' %}">Agregar Proyecto</a>
         {% if proyectos %}
             <table>
                 <thead>

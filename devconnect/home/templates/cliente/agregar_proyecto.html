@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Cliente|Agregar Proyecto|DevConnect®️</title>
+    </head>
+    <body>
+        <h1>Agregar Proyecto</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Agregar Proyecto</button>
+        </form>
+        <footer>DevConnect®️™️</footer>
+    </body>
+</html>
