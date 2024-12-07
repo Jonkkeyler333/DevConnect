@@ -29,7 +29,7 @@ def login_view(request):
                 if user.user_type=='freelancer':
                     return redirect('freelancer_home')
                 else:
-                    return redirect('cliente_dashboard')
+                    return redirect('cliente_home')
             else:
                 form.add_error(None,'Email o contraseña incorrectos')
     else:

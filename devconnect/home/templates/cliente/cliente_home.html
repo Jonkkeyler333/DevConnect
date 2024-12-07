@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Cliente|Home|DevConnect®️</title>
+    </head>
+    <body>
+        <h1>Cliente Home</h1>
+        <p>Bienvenido, {{ user.first_name }}</p>
+        <h2>Tus Proyectos</h2>
+        {% if proyectos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for proyecto in proyectos %}
+                        <tr>
+                            <td>{{ proyecto.titulo }}</td>
+                            <td>{{ proyecto.descripcion }}</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% else %}
+            <h3>No tienes proyectos 😥</h3>
+        {% endif %}
+        <footer>DevConnect®️™️</footer>
+    </body>
+</html>
