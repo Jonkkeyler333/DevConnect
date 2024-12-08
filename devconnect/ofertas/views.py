@@ -29,6 +29,8 @@ def aceptar_oferta(request):
     oferta_obj=get_object_or_404(oferta,id=oferta_id)
     oferta_obj.estado='aceptada'
     oferta_obj.proyecto.estado='en progreso'
+    oferta_obj.proyecto.freelancer_asignado=oferta_obj.freelancer
+    oferta_obj.proyecto.save()
     oferta_obj.save()
     return redirect('cliente_home')
 

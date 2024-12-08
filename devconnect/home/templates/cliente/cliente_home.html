@@ -7,6 +7,7 @@
     <body>
         <h1>Cliente Home</h1>
         <p>Bienvenido, {{saludo}} {{ user.first_name }}</p>
+        <img src="{{ user.profile_image }}" alt="Foto de perfil" width="200" height="200">
         <h2>Cerrar Sesión</h2>
         <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
         <h2>Tus Proyectos</h2>
