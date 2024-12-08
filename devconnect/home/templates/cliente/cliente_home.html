@@ -6,7 +6,9 @@
     </head>
     <body>
         <h1>Cliente Home</h1>
-        <p>Bienvenido, {{ user.first_name }}</p>
+        <p>Bienvenido, {{saludo}} {{ user.first_name }}</p>
+        <h2>Cerrar Sesión</h2>
+        <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
         <h2>Tus Proyectos</h2>
         <h3>Agregar Nuevo Proyecto</h3>
         <a href="{% url 'agregar_proyecto' %}">Agregar Proyecto</a>
@@ -16,6 +18,9 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Descripción</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,6 +28,12 @@
                         <tr>
                             <td>{{ proyecto.titulo }}</td>
                             <td>{{ proyecto.descripcion }}</td>
+                            <td>{{ proyecto.categoria}}</td>
+                            <td>{{ proyecto.estado }}</td>
+                            <td>
+                                <a href="{% url 'actualizar_proyecto' proyecto.id %}"><strong>Editar</strong></a>
+                                <a href="{% url 'eliminar_proyecto' proyecto.id %}"><strong>Eliminar</strong></a>
+                            </td>
                         </tr>
                     {% endfor %}
             </table>

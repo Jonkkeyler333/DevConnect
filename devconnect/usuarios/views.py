@@ -35,3 +35,6 @@ def login_view(request):
     else:
         form=LoginForm()
     return render(request,'users/login.html',{'form': form})
+
+def home_view(request):
+    return render(request,'home_page/home_page.html')
