@@ -16,7 +16,8 @@ def freelancer_home(request):
     else:
         saludo="Buenas noches"
     proyectos_disponibles=proyecto.objects.filter(freelancer_asignado=None)
-    return render(request,'freelancer/freelancer_home.html',context={'proyectos':proyectos_disponibles,'user':request.user,'saludo':saludo})
+    proyectos_actuales=proyecto.objects.filter(freelancer_asignado=request.user)
+    return render(request,'freelancer/freelancer_home.html',context={'proyectos':proyectos_disponibles,'user':request.user,'saludo':saludo,'proyectos_actuales':proyectos_actuales})
 
 def cliente_home(request):
     if request.user.user_type!='cliente':
@@ -43,6 +44,7 @@ def agregar_proyecto(request):
         if formulario.is_valid():
             proyecto_obj=formulario.save(commit=False)
             proyecto_obj.cliente=request.user
+            proyecto_obj.estado='en espera'
             proyecto_obj.save()
             return redirect('cliente_home')
     else:

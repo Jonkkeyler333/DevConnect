@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Tus Solicitudes|DevConnect®️</title>
+    </head>
+    <body>
+        <h1>Tus Solicitudes</h1>
+        <p>Aca podras ver las solicitudes que has realizado a diversos proyectos</p>
+        <h2>Ir al Home</h2>
+        <a href="{% url 'freelancer_home' %}">Home</a>
+        {% if solicitudes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes %}
+                        <tr>
+                            <td>{{ solicitud.proyecto.titulo }}</td>
+                            <td>{{ solicitud.estado }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h3>No tienes solicitudes 😥</h3>
+        {% endif %}
+    </body>
+</html>

@@ -9,34 +9,85 @@
         <h2>Bienvenido,{{saludo}} {{ user.first_name }}</h2>
         <p>Imagen perfil</p>
         <img src="{{ user.profile_image }}" alt="Foto de perfil" width="200" height="200">
+        <h2>Ver solicitudes</h2>
+        <a href="{% url 'solicitudes_freelancer' %}">Ver solicitudes</a>
         <h2>Cerrar Sesión</h2>
         <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
         <h2>Proyectos Disponibles</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Categoria</th>
-                    <th>Estado</th>
-                    <th>Salario</th>
-                    <th>Tiempo</th>
-                    <th>Solicitud</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for proyecto in proyectos %}
+        {% if proyectos%}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ proyecto.titulo }}</td>
-                        <td>{{ proyecto.descripcion|slice:":50" }}</td>
-                        <td>{{ proyecto.categoria }}</td>
-                        <td>{{ proyecto.estado }}</td>
-                        <td>{{ proyecto.sueldo }}</td>
-                        <td>{{ proyecto.tiempo }}</td>
-                        <td></td>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Salario</th>
+                        <th>Tiempo</th>
+                        <th>Solicitud</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        
+                </thead>
+                <tbody>
+                    {% for proyecto in proyectos %}
+                        <tr>
+                            <td>{{ proyecto.titulo }}</td>
+                            <td>{{ proyecto.descripcion|slice:":50" }}</td>
+                            <td>{{ proyecto.categoria }}</td>
+                            <td>{{ proyecto.estado }}</td>
+                            <td>{{ proyecto.sueldo }}</td>
+                            <td>{{ proyecto.tiempo }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'realizar_oferta' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="proyecto_id" value="{{ proyecto.id }}">
+                                    <button type="submit" onclick="alert('Solicitud realizada')">Solicitar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h3>No hay proyectos disponibles 😥</h3>
+        {% endif %}
+        <h2>Proyectos actuales</h2>
+        {% if proyectos_actuales %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Salario</th>
+                        <th>Tiempo</th>
+                        <th>Solicitud</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for proyecto in proyectos_actuales %}
+                        <tr>
+                            <td>{{ proyecto.titulo }}</td>
+                            <td>{{ proyecto.descripcion|slice:":50" }}</td>
+                            <td>{{ proyecto.categoria }}</td>
+                            <td>{{ proyecto.estado }}</td>
+                            <td>{{ proyecto.sueldo }}</td>
+                            <td>{{ proyecto.tiempo }}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h3>No tienes proyectos actuales 😥</h3>
+        {% endif %}
+    <h2>Notificaciones</h2>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     </body>
 </html>
