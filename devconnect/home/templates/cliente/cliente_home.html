@@ -27,7 +27,7 @@
                     {% for proyecto in proyectos %}
                         <tr>
                             <td>{{ proyecto.titulo }}</td>
-                            <td>{{ proyecto.descripcion }}</td>
+                            <td>{{ proyecto.descripcion|slice:":50" }}</td>
                             <td>{{ proyecto.categoria}}</td>
                             <td>{{ proyecto.estado }}</td>
                             <td>

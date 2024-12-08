@@ -6,7 +6,37 @@
     </head>
     <body>
         <h1>Freelancer Home</h1>
-        <p>Bienvenido, {{ user.username }}</p>
+        <h2>Bienvenido,{{saludo}} {{ user.first_name }}</h2>
+        <p>Imagen perfil</p>
+        <img src="{{ user.profile_image }}" alt="Foto de perfil" width="200" height="200">
+        <h2>Cerrar Sesión</h2>
+        <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+        <h2>Proyectos Disponibles</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoria</th>
+                    <th>Estado</th>
+                    <th>Salario</th>
+                    <th>Tiempo</th>
+                    <th>Solicitud</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proyecto in proyectos %}
+                    <tr>
+                        <td>{{ proyecto.titulo }}</td>
+                        <td>{{ proyecto.descripcion|slice:":50" }}</td>
+                        <td>{{ proyecto.categoria }}</td>
+                        <td>{{ proyecto.estado }}</td>
+                        <td>{{ proyecto.sueldo }}</td>
+                        <td>{{ proyecto.tiempo }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         
     </body>
 </html>

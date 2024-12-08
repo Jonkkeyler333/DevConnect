@@ -10,8 +10,7 @@ def register_view(request):
         form=RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            # return redirect('login')
-            return HttpResponse('Hola puto')
+            return redirect('login')
     else:
         form=RegisterForm()
     return render(request,'users/register.html',{'form':form})
@@ -25,7 +24,6 @@ def login_view(request):
             user=authenticate(request,username=email,password=password)
             if user is not None:
                 login(request,user)
-                # return HttpResponse(f'Hola {request.user.first_name}')
                 if user.user_type=='freelancer':
                     return redirect('freelancer_home')
                 else:

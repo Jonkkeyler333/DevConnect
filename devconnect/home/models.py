@@ -6,7 +6,7 @@ class proyecto(models.Model):
     categoria=models.CharField(max_length=100,choices=(('web','web'),('movil','movil'),('escritorio','escritorio'),('data science','data science'),('machine learning','machine learning'),('otros','otros')))
     descripcion=models.TextField()
     tiempo=models.CharField(max_length=100,choices=(('1 semana','1 semana'),('2 semanas','2 semanas'),('3 semanas','3 semanas'),('1 mes','1 mes'),('2 meses','2 meses'),('3 meses','3 meses'),('mas de 3 meses','mas de 3 meses'),('obra labor','obra labor')))
-    sueldo=models.IntegerField()
+    sueldo=models.PositiveIntegerField()
     cliente=models.ForeignKey(User,on_delete=models.CASCADE)
     fecha_creacion=models.DateTimeField(auto_now_add=True)
     fecha_finalizacion=models.DateTimeField()

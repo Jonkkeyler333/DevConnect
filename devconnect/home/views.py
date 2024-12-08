@@ -8,7 +8,15 @@ import datetime
 def freelancer_home(request):
     if request.user.user_type!='freelancer':
         return HttpResponse('You are not authorized to view this page')
-    return render(request,'freelancer/freelancer_home.html',context={'user':request.user})
+    current_hour = datetime.datetime.now().hour
+    if 5<=current_hour<12:
+        saludo="Buenos días"
+    elif 12<=current_hour<18:
+        saludo="Buenas tardes"
+    else:
+        saludo="Buenas noches"
+    proyectos_disponibles=proyecto.objects.filter(freelancer_asignado=None)
+    return render(request,'freelancer/freelancer_home.html',context={'proyectos':proyectos_disponibles,'user':request.user,'saludo':saludo})
 
 def cliente_home(request):
     if request.user.user_type!='cliente':
