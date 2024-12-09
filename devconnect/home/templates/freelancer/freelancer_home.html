@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>Freelancer Home</h1>
-        <h2>Bienvenido,{{saludo}} {{ user.first_name }}</h2>
+        <h2>Bienvenido, {{ saludo }} {{ user.first_name }}</h2>
         <p>Imagen perfil</p>
         <img src="{{ user.profile_image }}" alt="Foto de perfil" width="200" height="200">
         <h2>Ver solicitudes</h2>
@@ -14,7 +14,7 @@
         <h2>Cerrar Sesión</h2>
         <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
         <h2>Proyectos Disponibles</h2>
-        {% if proyectos%}
+        {% if proyectos %}
             <table>
                 <thead>
                     <tr>
@@ -73,7 +73,11 @@
                             <td>{{ proyecto.estado }}</td>
                             <td>{{ proyecto.sueldo }}</td>
                             <td>{{ proyecto.tiempo }}</td>
-                            <td></td>
+                            <td>
+                                {% if proyecto.estado != "finalizado" %}
+                                    <a href="{% url 'finalizar_proyecto' proyecto.id %}"><strong>Finalizar</strong></a>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -81,13 +85,13 @@
         {% else %}
             <h3>No tienes proyectos actuales 😥</h3>
         {% endif %}
-    <h2>Notificaciones</h2>
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <h2>Notificaciones</h2>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </body>
 </html>

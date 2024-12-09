@@ -1,4 +1,18 @@
 <!DOCTYPE html>
 <html>
-    
+    <head>
+        <meta charset="UTF-8">
+        <title>Finalizar Proyecto|DevConnect®️</title>
+    </head>
+    <body>
+        <h1>Finalizar Proyecto</h1>
+        <h2>¿Estás seguro de que deseas finalizar el proyecto {{ proyecto.titulo }}?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" onclick="alert('Proyecto Finalizado')">Finalizar Proyecto</button>
+        </form>
+        <h2>Desea cancelar la operación ?</h2>
+        <a href="{% url 'cliente_home' %}"><strong>Cancelar</strong></a>
+        <footer>DevConnect®️™️</footer>
+    </body>
 </html>

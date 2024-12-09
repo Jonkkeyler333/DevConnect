@@ -69,3 +69,11 @@ def eliminar_proyecto(request,proyecto_id):
         proyecto_obj.delete()
         return redirect('cliente_home')
     return render(request,'cliente/eliminar_proyecto.html',context={'proyecto':proyecto_obj})
+
+def finalizar_proyecto(request,proyecto_id):
+    proyecto_obj=get_object_or_404(proyecto,id=proyecto_id,freelancer_asignado=request.user)
+    if request.method=='POST':
+        proyecto_obj.estado='finalizado'
+        proyecto_obj.save()
+        return redirect('freelancer_home')
+    return render(request,'freelancer/finalizar_proyecto.html',context={'proyecto':proyecto_obj})

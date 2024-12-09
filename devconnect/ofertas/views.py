@@ -40,3 +40,11 @@ def ver_ofertas(request):
     proyecto_id=request.POST.get('proyecto_id')
     ofertas=oferta.objects.filter(proyecto_id=proyecto_id)
     return render(request,'cliente/ver_ofertas.html',context={'ofertas':ofertas})
+
+def rechazar_oferta(request):
+    if request.user.user_type!='cliente':
+        return HttpResponse('You are not authorized to view this page')
+    oferta_id=request.POST.get('oferta_id')
+    oferta_obj=get_object_or_404(oferta,id=oferta_id)
+    oferta_obj.delete()
+    return redirect('cliente_home')

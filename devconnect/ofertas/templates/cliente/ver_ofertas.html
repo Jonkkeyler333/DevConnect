@@ -2,39 +2,47 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ver ofertas proyectos|DevConnect®️</title>
+        <title>ver ofertas proyectos | DevConnect®️</title>
     </head>
     <body>
         <h1>Ver ofertas realizadas por desarrolladores</h1>
         {% if ofertas %}
             {% for oferta in ofertas %}
                 <p>Proyecto : <strong>{{ oferta.proyecto.titulo }} </strong></p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Desarrollador</th>
-                                <th>Fecha-Oferta</th>
-                                <th>Estado</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                            <tr>
-                                <td>{{ oferta.freelancer.first_name }} {{ oferta.freelancer.last_name }}</td>
-                                <td>{{ oferta.fecha_oferta }}</td>
-                                <td>{{ oferta.estado }}</td>
-                                <td>
-                                    <form method="POST" action="{% url 'aceptar_oferta' %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
-                                        <button type="submit" onclick="alert('Oferta aceptada')">Aceptar</button>
-                                    </form>
-                                </td>
-                            </tr>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Desarrollador</th>
+                            <th>Fecha-Oferta</th>
+                            <th>Estado</th>
+                            {% if oferta.estado != 'aceptada' %}
+                            <th>Acción</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ oferta.freelancer.first_name }} {{ oferta.freelancer.last_name }}</td>
+                            <td>{{ oferta.fecha_oferta }}</td>
+                            <td>{{ oferta.estado }}</td>
+                            {% if oferta.estado != 'aceptada' %}
+                            <td>
+                                <form method="POST" action="{% url 'aceptar_oferta' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                    <button type="submit" onclick="alert('Oferta aceptada')">Aceptar</button>
+                                </form>
+                                <form method="POST" action="{% url 'rechazar_oferta' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                    <button type="submit" onclick="alert('Oferta rechazada')">Rechazar</button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
                     </tbody>
                 </table>
-            {% endfor %}    
+            {% endfor %}
         {% else %}
             <h3>No hay ofertas 😥</h3>
         {% endif %}
