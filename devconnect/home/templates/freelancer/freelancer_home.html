@@ -38,15 +38,12 @@
             </div>
 
             <!-- Botones de acciones -->
-            <div class="row my-5">
+            <div class="d-flex justify-content-center my-5">
                 <div class="col-md-6 text-center">
                     <a href="{% url 'solicitudes_freelancer' %}" class="btn btn-success w-100">Ver solicitudes</a>
                 </div>
-                <div class="col-md-6 text-center">
-                    <a href="{% url 'cerrar_sesion' %}" class="btn btn-danger w-100">Cerrar Sesión</a>
-                </div>
             </div>
-
+            
             <!-- Proyectos Disponibles -->
             <h2 class="text-center mb-4">Proyectos Disponibles</h2>
             {% if proyectos %}
