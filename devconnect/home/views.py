@@ -78,7 +78,6 @@ def finalizar_proyecto(request, proyecto_id):
         return redirect('freelancer_home')
     return render(request, 'freelancer/finalizar_proyecto.html', context={'proyecto': proyecto_obj})
 
-# Nueva vista: Ver ofertas
 def ver_ofertas(request):
     if request.method == "POST":
         proyecto_id = request.POST.get("proyecto_id", "").strip()
@@ -87,17 +86,4 @@ def ver_ofertas(request):
         proyecto_obj = get_object_or_404(proyecto, id=proyecto_id)
         # Lógica adicional para manejar las ofertas del proyecto
         return render(request, 'cliente/ver_ofertas.html', context={'proyecto': proyecto_obj})
-    return HttpResponseBadRequest("Método no permitido.")
-
-
-def ver_ofertas(request):
-    if request.method == "POST":
-        proyecto_id = request.POST.get("proyecto_id", "").strip()
-        if not proyecto_id or not proyecto_id.isdigit():  # Validación adicional
-            return HttpResponseBadRequest("El campo proyecto_id debe contener un número válido.")
-        
-        proyecto_obj = get_object_or_404(proyecto, id=int(proyecto_id))
-        # Renderiza una plantilla con las ofertas del proyecto
-        return render(request, 'cliente/ver_ofertas.html', context={'proyecto': proyecto_obj})
-    
     return HttpResponseBadRequest("Método no permitido.")
