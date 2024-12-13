@@ -2,52 +2,71 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ver ofertas proyectos | DevConnect®️</title>
+        <title>Ver Ofertas Proyectos | DevConnect®️</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <h1>Ver ofertas realizadas por desarrolladores</h1>
-        {% if ofertas %}
-            {% for oferta in ofertas %}
-                <p>Proyecto : <strong>{{ oferta.proyecto.titulo }} </strong></p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Desarrollador</th>
-                            <th>Fecha-Oferta</th>
-                            <th>Estado</th>
-                            {% if oferta.estado != 'aceptada' %}
-                            <th>Acción</th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ oferta.freelancer.first_name }} {{ oferta.freelancer.last_name }}</td>
-                            <td>{{ oferta.fecha_oferta }}</td>
-                            <td>{{ oferta.estado }}</td>
-                            {% if oferta.estado != 'aceptada' %}
-                            <td>
-                                <form method="POST" action="{% url 'aceptar_oferta' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
-                                    <button type="submit" onclick="alert('Oferta aceptada')">Aceptar</button>
-                                </form>
-                                <form method="POST" action="{% url 'rechazar_oferta' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
-                                    <button type="submit" onclick="alert('Oferta rechazada')">Rechazar</button>
-                                </form>
-                            </td>
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                </table>
-            {% endfor %}
-        {% else %}
-            <h3>No hay ofertas 😥</h3>
-        {% endif %}
-        <h2>
-            <a href="{% url 'cliente_home' %}">Home</a>
-        </h2>
+    <body class="bg-light">
+        <div class="container">
+            <header class="bg-primary text-white text-center py-4">
+                <h1 class="display-5">Ver Ofertas Realizadas por Desarrolladores</h1>
+            </header>
+
+            <main class="my-5">
+                {% if ofertas %}
+                    {% for oferta in ofertas %}
+                        <div class="mb-4">
+                            <h3 class="text-center">Proyecto: <strong>{{ oferta.proyecto.titulo }}</strong></h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Desarrollador</th>
+                                            <th>Fecha-Oferta</th>
+                                            <th>Estado</th>
+                                            {% if oferta.estado != 'aceptada' %}
+                                                <th>Acción</th>
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ oferta.freelancer.first_name }} {{ oferta.freelancer.last_name }}</td>
+                                            <td>{{ oferta.fecha_oferta }}</td>
+                                            <td>{{ oferta.estado }}</td>
+                                            {% if oferta.estado != 'aceptada' %}
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <form method="POST" action="{% url 'aceptar_oferta' %}">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                                            <button type="submit" class="btn btn-success btn-sm w-100" onclick="alert('Oferta aceptada')">Aceptar</button>
+                                                        </form>
+                                                        <form method="POST" action="{% url 'rechazar_oferta' %}">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                                            <button type="submit" class="btn btn-danger btn-sm w-100" onclick="alert('Oferta rechazada')">Rechazar</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3 class="text-center text-muted">No hay ofertas 😥</h3>
+                {% endif %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'cliente_home' %}" class="btn btn-secondary btn-lg">Home</a>
+                </div>
+            </main>
+
+            <footer class="bg-dark text-white text-center py-3">
+                <p class="mb-0">DevConnect®️™️</p>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
