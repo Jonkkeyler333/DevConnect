@@ -14,38 +14,22 @@
             <main class="my-5">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6">
-                        <form method="POST" class="card p-4 shadow">
+                        <form method="POST" class="card p-4 shadow" enctype="multipart/form-data">
                             {% csrf_token %}
+                            <!-- Renderiza todo el formulario -->
+                            {% for field in form %}
                             <div class="mb-3">
-                                <label for="titulo" class="form-label">Título:</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
                             </div>
-                            <div class="mb-3">
-                                <label for="categoria" class="form-label">Categoría:</label>
-                                <select class="form-select" id="categoria" name="categoria" required>
-                                    <option value="" disabled selected>Seleccione una categoría</option>
-                                    <!-- Opciones dinámicas -->
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="descripcion" class="form-label">Descripción:</label>
-                                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="tiempo" class="form-label">Tiempo:</label>
-                                <select class="form-select" id="tiempo" name="tiempo" required>
-                                    <option value="" disabled selected>Seleccione el tiempo</option>
-                                    <!-- Opciones dinámicas -->
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="sueldo" class="form-label">Sueldo:</label>
-                                <input type="number" class="form-control" id="sueldo" name="sueldo" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha_finalizacion" class="form-label">Fecha de finalización:</label>
-                                <input type="date" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" required>
-                            </div>
+                            {% endfor %}
+                            <!-- Botón Agregar -->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-success btn-lg">Agregar Proyecto</button>
                             </div>
