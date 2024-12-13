@@ -2,17 +2,35 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Finalizar Proyecto|DevConnect®️</title>
+        <title>Finalizar Proyecto | DevConnect®️</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <h1>Finalizar Proyecto</h1>
-        <h2>¿Estás seguro de que deseas finalizar el proyecto {{ proyecto.titulo }}?</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" onclick="alert('Proyecto Finalizado')">Finalizar Proyecto</button>
-        </form>
-        <h2>Desea cancelar la operación ?</h2>
-        <a href="{% url 'cliente_home' %}"><strong>Cancelar</strong></a>
-        <footer>DevConnect®️™️</footer>
+    <body class="bg-light">
+        <div class="container">
+            <header class="bg-primary text-white text-center py-4">
+                <h1 class="display-5">Finalizar Proyecto</h1>
+            </header>
+            
+            <main class="my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <h2 class="mb-4">¿Estás seguro de que deseas finalizar el proyecto <strong>{{ proyecto.titulo }}</strong>?</h2>
+                        <form method="POST" class="d-grid gap-2">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-lg" onclick="alert('Proyecto Finalizado')">
+                                Finalizar Proyecto
+                            </button>
+                        </form>
+                        <h2 class="mt-5">¿Deseas cancelar la operación?</h2>
+                        <a href="{% url 'cliente_home' %}" class="btn btn-secondary btn-lg w-100 mt-3">Cancelar</a>
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="bg-dark text-white text-center py-3">
+                <p class="mb-0">DevConnect®️™️</p>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

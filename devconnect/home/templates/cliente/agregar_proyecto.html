@@ -2,17 +2,39 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Cliente|Agregar Proyecto|DevConnect®️</title>
+        <title>Cliente | Agregar Proyecto | DevConnect®️</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <h1>Agregar Proyecto</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Agregar Proyecto</button>
-        </form>
-        <h2>Desea cancelar la operación ?</h2>
-        <a href="{% url 'cliente_home' %}"><strong>Cancelar</strong></a>
-        <footer>DevConnect®️™️</footer>
+    <body class="bg-light">
+        <div class="container">
+            <header class="bg-primary text-white text-center py-4">
+                <h1 class="display-5">Agregar Proyecto</h1>
+            </header>
+
+            <main class="my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form method="POST" class="card p-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.as_p }}
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    Agregar Proyecto
+                                </button>
+                            </div>
+                        </form>
+                        <h2 class="text-center mt-5">¿Desea cancelar la operación?</h2>
+                        <a href="{% url 'cliente_home' %}" class="btn btn-secondary btn-lg w-100 mt-3">Cancelar</a>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="bg-dark text-white text-center py-3">
+                <p class="mb-0">DevConnect®️™️</p>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
